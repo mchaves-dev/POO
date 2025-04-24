@@ -1,0 +1,58 @@
+Desafio: Sistema de Pagamento Malfeito Ltda.
+
+Objetivo:
+
+Refatorar um código legado extremamente acoplado, removendo más práticas e aplicando herança, abstração e princípios sólidos da orientação a objetos com C#.
+
+ Código Legado (Monolito Acoplado)
+
+ public class Pagamento
+{
+    public void RealizarPagamento(string tipo, double valor)
+    {
+        if (tipo == "boleto")
+        {
+            Console.WriteLine($"Pagamento de R${valor} realizado via Boleto.");
+        }
+        else if (tipo == "cartao")
+        {
+            Console.WriteLine($"Pagamento de R${valor} realizado via Cartão de Crédito.");
+        }
+        else if (tipo == "pix")
+        {
+            Console.WriteLine($"Pagamento de R${valor} realizado via Pix.");
+        }
+        else
+        {
+            Console.WriteLine("Tipo de pagamento inválido!");
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var pagamento = new Pagamento();
+        pagamento.RealizarPagamento("boleto", 150.00);
+        pagamento.RealizarPagamento("cartao", 300.00);
+        pagamento.RealizarPagamento("pix", 75.00);
+    }
+}
+
+Problemas Detectados:
+
+ - Métodos não reutilizáveis.
+ - Alto acoplamento.
+ - Testando strings.
+ - Altamente coesa em um só ponto.
+ - Manutenção complexa.
+ - Não é expansivel, baixa escalabilidade para novos tipos de pagamento.
+
+Solução apresentada:
+
+- Tornei a classe Pagamento abstrata, pois ela representa um conceito genérico e não uma entidade concreta.
+- Atualizei o método RealizarPagamento para ser abstrato, sem comportamento padrão — afinal, todo pagamento será executado, mas de formas diferentes.
+- Removi o parâmetro tipo do método RealizarPagamento, pois não faz mais sentido nesse novo modelo orientado a objetos.
+- Criei classes seladas (sealed) que estendem Pagamento: PagamentoBoleto, PagamentoCartao e PagamentoPix. Cada classe representa um tipo específico de pagamento.
+- Atualizei a implementação para seguir boas práticas de herança e princípios de design orientado a objeto
