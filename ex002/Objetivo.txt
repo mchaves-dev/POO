@@ -1,0 +1,46 @@
+Desafio 2: Sistema de Notificações (Anti-SPAM ou quase isso)
+
+Objetivo:
+
+Refatorar um sistema de envio de notificações que atualmente é caótico, usando herança, abstração, e mantendo o princípio do aberto/fechado. O foco aqui é reutilizar lógica comum e permitir extensibilidade.
+
+Código Legado:
+
+public class Notificacao
+{
+    public void Enviar(string tipo, string mensagem, string destinatario)
+    {
+        if (tipo == "email")
+        {
+            Console.WriteLine($"Enviando e-mail para {destinatario}: {mensagem}");
+        }
+        else if (tipo == "sms")
+        {
+            Console.WriteLine($"Enviando SMS para {destinatario}: {mensagem}");
+        }
+        else if (tipo == "push")
+        {
+            Console.WriteLine($"Enviando Push Notification para {destinatario}: {mensagem}");
+        }
+        else
+        {
+            Console.WriteLine("Tipo de notificação inválido.");
+        }
+    }
+}
+
+Problemas Detectados:
+
+- Alto acoplamento.
+- Comparação de strings, suscetível a erros.
+- Classe com múltiplas responsabilidades (violação do princípio da responsabilidade única).
+- Dificuldade de manutenção e baixa extensibilidade.
+
+Solução Apresentada:
+
+- Tornar a classe Notificacao abstrata.
+- Definir o método Enviar como abstrato, forçando as classes derivadas a implementarem seu próprio comportamento.
+- Criar um construtor que recebe uma instância da classe NotificacaoParametros.
+- Centralizar os parâmetros comuns de envio em uma única classe (NotificacaoParametros).
+- Separar a responsabilidade de cada tipo de envio (Email, Sms, Push) em classes específicas e seladas.
+- Desacoplar o envio de notificações, promovendo alta coesão e baixo acoplamento.
