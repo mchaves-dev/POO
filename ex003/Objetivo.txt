@@ -1,0 +1,79 @@
+Desafio 03: Sistema de Controle de Animais em um Zoológico
+
+Objetivo:
+
+Temos uma classe Animal gigante e mal planejada, com tudo misturado. Cada tipo de animal precisa emitir seu som e fazer uma ação específica (voar, correr, nadar). Porém, está tudo acoplado e gambiarra pura.
+
+Código Legado:
+
+public class Animal
+{
+    public string Tipo { get; set; }
+    public string Nome { get; set; }
+    
+    public void EmitirSom()
+    {
+        if (Tipo == "Cachorro")
+        {
+            Console.WriteLine($"{Nome} faz: Au Au!");
+        }
+        else if (Tipo == "Gato")
+        {
+            Console.WriteLine($"{Nome} faz: Miau!");
+        }
+        else if (Tipo == "Pato")
+        {
+            Console.WriteLine($"{Nome} faz: Quack!");
+        }
+    }
+    
+    public void Mover()
+    {
+        if (Tipo == "Cachorro")
+        {
+            Console.WriteLine($"{Nome} está correndo!");
+        }
+        else if (Tipo == "Gato")
+        {
+            Console.WriteLine($"{Nome} está andando sorrateiramente!");
+        }
+        else if (Tipo == "Pato")
+        {
+            Console.WriteLine($"{Nome} está nadando!");
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var cachorro = new Animal { Tipo = "Cachorro", Nome = "Rex" };
+        var gato = new Animal { Tipo = "Gato", Nome = "Mimi" };
+        var pato = new Animal { Tipo = "Pato", Nome = "Donald" };
+        
+        cachorro.EmitirSom();
+        cachorro.Mover();
+        
+        gato.EmitirSom();
+        gato.Mover();
+        
+        pato.EmitirSom();
+        pato.Mover();
+    }
+}
+
+Problemas Detectados:
+
+- Baixa coesão: múltiplas responsabilidades em uma única classe.
+- Alto acoplamento: difícil de manter e estender.
+- Comparações por string, suscetíveis a erros.
+- Lógica de comportamento misturada e não encapsulada.
+- Aumento da complexidade e propensão a bugs em alterações futuras.
+
+Solução Apresentada:
+
+- Encapsulamento dos comportamentos específicos de cada animal em classes separadas.
+- Aplicação do padrão Factory para criação de instâncias.
+- Extração de responsabilidades, seguindo o princípio da responsabilidade única (SRP).
+- Redução do acoplamento e aumento da extensibilidade do sistema.
